@@ -6,7 +6,7 @@ A simple python flask web application to view, insert and delete entries of mong
 
 ## Prerequisites
 Python 3.4 or higher <br>
-Docker & Docker compose
+Docker & Docker compose <br>
 pip
 
 
@@ -18,6 +18,7 @@ docker-compose up
 ```
 
 ##Running code with native python
+
 ```bash
 cd web
 pip install -r requirements.txt

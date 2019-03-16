@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+    <meta name="description" content="West Docker"/>
+    <meta name="keywords"
+          content="West, Docker, research, research papers, uchi, uchicago"/>
+    <meta name="author" content="Aditya">
+    <title>Home | West Docker</title>
+{#    <link rel="shortcut icon" href="http://www.west-code.org/images/west_favicon.png"/>#}
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+
+
+    <!--Data Table-->
+
+
+
+    <script type="text/javascript"  src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript"  src="https://cdn.datatables.net/rowreorder/1.2.5/js/dataTables.rowReorder.min.js"></script>
+    <script type="text/javascript"  src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+    <script src="{{ url_for('static', filename='./javascript/jquery.dropotron.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='./javascript/skel.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='./javascript/skel-layers.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='./javascript/init.js') }}"></script>
+        <link rel="stylesheet" href="{{ url_for('static', filename='./css/skel.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='./css/style.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='./css/style-wide.css') }}">
+
+
+{#        <link rel="stylesheet" href="{{ url_for('static', filename='./css/jquery.dataTables.css') }}">#}
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/rowreorder/1.2.5/css/rowReorder.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">
+
+    <!--[if lte IE 8]><link rel="stylesheet" href="http://www.west-code.org/css/ie/v8.css" /><![endif]-->
+
+</head>
+<body>
+{% from "_formhelpers.html" import render_field %}
+
+<!-- Header -->
+<div id="header">
+    <!-- Logo
+
+
+                    <!-- Nav -->
+    <nav id="nav">
+        <ul>
+            <li class="current">
+                <a href="/">Home</a>
+            </li>
+            <li>
+                <a href="/westcreate">Insert metadata</a>
+            </li>
+             <li>
+                <a href="/westdelete">Delete metadata</a>
+            </li>
+        </ul>
+    </nav>
+
+</div>
+
+
+
+
+<!-- Highlights -->
+<section class="wrapper style1">
+
+
+    <div class="container">
+
+        <div>
+            <center>
+                <h2> Refine your search  </h2>
+            </center>
+            <div class="row">
+                <div class="10u">
+                    <input type="text" id="searchWord"
+                           placeholder="Enter your search here..." title="Search here" name="search" value=""
+                    >
+                </div>
+                <div style="padding-left: 0">
+                    <input type="button" id="btnSearch"
+                           name="general_search_button" value="Search"
+                           style="font-weight: bold;">
+                </div>
+                <div id="conn_options" class="12u">
+                    <a href="javascript:void(0);" id="more-less-options-button"
+                       style="color: #357ebd;float:left;margin-top: 5px;"> Advanced Search >> </a>
+                </div>
+            </div>
+            <form id="searchForm" name="searchForm" method="post" style="display: none;">
+                <div class="row">
+                    <div class="form-group col-md-4">
+                        {{ render_field(form.mpiversion) }}
+                    </div>
+                    <div class="form-group col-md-4">
+                        {{ render_field(form.fftwversion) }}
+                    </div>
+                    <div class="form-group col-md-4">
+                        {{ render_field(form.blasversion) }}
+                    </div>
+                    <div class="form-group col-md-4">
+                        {{ render_field(form.lapackversion) }}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-md-4">
+                        {{ render_field(form.westversion) }}
+                    </div>
+                    <div class="form-group col-md-4">
+                        {{ render_field(form.gccversion) }}
+                    </div>
+                    <div class="form-group col-md-4">
+                        {{ render_field(form.gfortanversion) }}
+                    </div>
+                    <div class="form-group col-md-4">
+                        {{ render_field(form.pythonversion) }}
+                    </div>
+                </div>
+            </form>
+        </div>
+
+
+
+
+
+    </div>
+</section>
+
+<section class="wrapper style2">
+    <div class="container" id="paperContainer">
+        <hr/>
+            <div id="divWest">
+                <table id="tblWest" class="display nowrap" style="width:100%" data-stripe-classes="[]">
+                    <thead>
+                    <tr>
+                        <th>Docker Id</th>
+                        <th>West</th>
+                        <th>Properties</th>
+                        <th>gcc</th>
+                        <th>Fortran</th>
+                        <th>blas</th>
+                        <th>lapack</th>
+                        <th>MPI</th>
+                        <th>fftw</th>
+                        <th>Python</th>
+                    </tr>
+                    </thead>
+                    <tfoot>
+                    <tr>
+                        <th>Docker Id</th>
+                        <th>West</th>
+                        <th>Properties</th>
+                        <th>gcc</th>
+                        <th>Fortran</th>
+                        <th>blas</th>
+                        <th>lapack</th>
+                        <th>MPI</th>
+                        <th>fftw</th>
+                        <th>Python</th>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+    </div>
+</section>
+
+
+
+<!-- CTA -->
+<section id="cta" class="wrapper style3">
+    <div class="container">
+        <header>
+            <!--						<h2>Any questions?</h2>
+                                    <a href="forum.php" class="button">Check the Forum</a>
+            -->					</header>
+    </div>
+</section>
+
+
+
+<!-- Footer -->
+<div id="footer">
+
+    <ul class="icons">
+        <li> <a href="http://www.uchicago.edu"><img src="http://www.west-code.org/template/logo.rgb.maroon.png" alt="" width="250" align="middle"/> </a></li>
+        <li> <a href="http://www.anl.gov"><img src="http://www.west-code.org/template/anl.png" alt="" width="200" align="middle"/> </a></li>
+    </ul>
+
+    <!--	 Copyright -->
+    <div class="copyright">
+        <ul class="menu">
+            <li> UChicago and ANL </li><li> 2014-2019 </li>
+
+        </ul>
+    </div>
+
+</div>
+
+
+</body>
+<script type="text/javascript">
+    $(function () {
+        $("#more-less-options-button").click(function () {
+            var txt = $("#searchForm").is(':visible') ? 'Advanced Search >>' : 'Advanced Search <<';
+            $("#more-less-options-button").text(txt);
+            $("#searchForm").slideToggle("slow");
+        });
+        var allWestList = {{ allwestlist | tojson }};
+        console.log("0>",allWestList[0]);
+        $("#tblWest").DataTable({
+            "data": allWestList,
+            "serverSide": false,
+            "lengthMenu": [[10, 25, 50, 100, 500, -1],
+                [10, 25, 50, 100, 500, "All"]],
+            "pageLength": 10,
+            "responsive": true,
+            "columns": [
+                {
+                    "data": 'id',
+                    "visible": true,
+                    "searchable": false,
+                    "sortable": false
+                },
+                {
+                    "data": "west_version",
+                    "visible": true,
+                    "searchable": true,
+                    "sortable": false
+                },
+                {
+                    "data": null,
+                    "visible": true,
+                    "searchable": true,
+                    "sortable": true,
+                    "render": function (data, type, row, meta) {
+                        var extraFields = "";
+                        row["extraFields"].forEach(function (element) {
+                                 extraFields = extraFields +  "<tr style='border-bottom:dotted 0.5px;'><td>" + element["extrakey"] +
+                                     ": </td><td>" + element["extravalue"] + "</td></tr>"
+                        });
+                        rendered = "<table style='border:dotted 0.5px;'>" +
+                                    extraFields
+                                    "<tr><td> Properties version: "+row["extraFields"]+"</td></tr>" +
+                                    "<tr><td> gcc version: "+row["gcc_version"]+"</td></tr>" +
+                                    "<tr><td> fortran version: "+row["gfortan_version"]+"</td></tr>" +
+                                "<tr><td> blas version: "+row["blas_version"]+"</td></tr>" +
+                                "<tr><td> lapack version: "+row["lapack_version"]+"</td></tr>" +
+                                "<tr><td> mpi version: "+row["mpi_version"]+"</td></tr>" +
+                                "<tr><td> fftw version: "+row["fftw_version"]+"</td></tr>" +
+                                "<tr><td> Python version: "+row["python_version"]+"</td></tr>" +
+                                "</table>";
+                        return rendered;
+                    }
+                },
+                {
+                    "data": "gcc_version",
+                    "visible": false,
+                    "searchable": true,
+                    "sortable": false
+                },
+                {
+                    "data": "gfortan_version",
+                    "visible": false,
+                    "searchable": true,
+                    "sortable": false
+                },
+                {
+                    "data": "blas_version",
+                    "visible": false,
+                    "searchable": true,
+                    "sortable": false
+                },
+                {
+                    "data": "lapack_version",
+                    "visible": false,
+                    "searchable": true,
+                    "sortable": false
+                },
+                {
+                    "data": "mpi_version",
+                    "visible": false,
+                    "searchable": true,
+                    "sortable": false
+                },
+                {
+                    "data": "fftw_version",
+                    "visible": false,
+                    "searchable": true,
+                    "sortable": false
+                },
+                {
+                    "data": "python_version",
+                    "visible": false,
+                    "searchable": true,
+                    "sortable": false
+                }
+
+            ],
+            "search": {
+                "caseInsensitive": true,
+                "regex": false,
+                "smart": true,
+                "placeholder": "Enter search here"
+            },
+            "language":{
+                "search": '<i class="fa fa-search"></i>',
+                "searchPlaceholder": "Enter text here"
+            }
+        });
+
+    });
+</script>
+
+
+
+</html>

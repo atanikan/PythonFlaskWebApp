@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+    <meta name="description" content="West Docker"/>
+    <meta name="keywords"
+          content="West, Docker, research, research papers, uchi, uchicago"/>
+    <meta name="author" content="Aditya">
+    <title>Delete | West Docker</title>
+{#    <link rel="shortcut icon" href="http://www.west-code.org/images/west_favicon.png"/>#}
+    <script src="{{ url_for('static', filename='./javascript/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='./javascript/jquery.dropotron.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='./javascript/skel.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='./javascript/skel-layers.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='./javascript/init.js') }}"></script>
+    <noscript>
+        <link rel="stylesheet" href="{{ url_for('static', filename='./css/skel.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='./css/style.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='./css/style-wide.css') }}">
+    </noscript>
+    <!--[if lte IE 8]><link rel="stylesheet" href="http://www.west-code.org/css/ie/v8.css" /><![endif]-->
+
+</head>
+<body>
+{% from "_formhelpers.html" import render_field %}
+
+<!-- Header -->
+<div id="header">
+    <!-- Logo
+
+
+                    <!-- Nav -->
+    <nav id="nav">
+        <ul>
+            <li>
+                <a href="/">Home</a>
+            </li>
+            <li>
+                <a href="/westcreate">Insert metadata</a>
+            </li>
+            <li class="current">
+                <a href="/westdelete">Delete metadata</a>
+            </li>
+        </ul>
+    </nav>
+
+</div>
+
+
+<!-- Highlights -->
+<section class="wrapper style1">
+
+
+    <div class="container">
+            <div id="passcodesection">
+                <center><h2 title="Enter passcode set at runtime" class="text-center"> Enter Passcode </h2></center>
+                <form method="post" id="passcodeform" action="verifyPasscode">
+                    {{ render_field(verifyform.passcode) }}
+                    <span class="input-group-btn">
+                                    <input type="button" id="btnPasscode"
+                                           name="general_search_button" value="Submit"
+                                           title="Verify passcode" style="margin-top: 10px;">
+                        </span>
+                </form>
+            </div>
+    </div>
+</section>
+
+<section class="wrapper style1">
+
+
+    <div class="container">
+
+
+
+            <div id="deleteconnection" style="display: none;">
+                <h2 data-toggle="tooltip" title="Delete West Docker metadata" class="text-center"> Delete West Docker metadata </h2>
+                <form method="post" action="westdelete">
+                    {{ render_field(form.dockerid) }}
+                    <span class="input-group-btn">
+                                <input type="submit" id="btnDelete"
+                                       name="general_delete_button" value="Delete"
+                                       title="Delete west code details." style="margin-top: 10px;">
+                    </span>
+                </form>
+            </div>
+
+
+
+        </div>
+
+
+    </div>
+</section>
+
+
+
+<!-- CTA -->
+<section id="cta" class="wrapper style3">
+    <div class="container">
+        <header>
+            <!--						<h2>Any questions?</h2>
+                                    <a href="forum.php" class="button">Check the Forum</a>
+            -->                    </header>
+    </div>
+</section>
+
+
+<!-- Footer -->
+<div id="footer">
+
+    <ul class="icons">
+        <li><a href="http://www.uchicago.edu"><img src="http://www.west-code.org/template/logo.rgb.maroon.png" alt=""
+                                                   width="250" align="middle"/> </a></li>
+        <li><a href="http://www.anl.gov"><img src="http://www.west-code.org/template/anl.png" alt="" width="200"
+                                              align="middle"/> </a></li>
+    </ul>
+
+    <!--	 Copyright -->
+    <div class="copyright">
+        <ul class="menu">
+            <li> UChicago and ANL</li>
+            <li> 2014-2019</li>
+
+        </ul>
+    </div>
+
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $("#btnPasscode").on('click', function (event) {
+            $.ajax({
+                type: "POST",
+                url: "verifyPasscode",
+                data: $('#passcodeform').serialize(),
+                success: function (data) {
+                    console.log(data);
+                    if (data.msg === "success") {
+                        $("#passcodesection").toggle();
+                        $("#deleteconnection").toggle();
+                    } else {
+                        alert("Passcode do not match");
+                    }
+                }
+            });
+            event.preventDefault();
+        });
+        $('#passcodeform').on('keyup keypress', function(e) {
+          var keyCode = e.keyCode || e.which;
+          if (keyCode === 13) {
+            e.preventDefault();
+            return false;
+          }
+        });
+    });
+</script>
+
+
+</body>
+
+
+</html>

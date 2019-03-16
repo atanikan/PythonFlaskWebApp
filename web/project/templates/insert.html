@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+    <meta name="description" content="West Docker"/>
+    <meta name="keywords"
+          content="West, Docker, research, research papers, uchi, uchicago"/>
+    <meta name="author" content="Aditya">
+    <title>Insert | West Docker</title>
+{#    <link rel="shortcut icon" href="http://www.west-code.org/images/west_favicon.png"/>#}
+    <script src="{{ url_for('static', filename='./javascript/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='./javascript/jquery.dropotron.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='./javascript/skel.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='./javascript/skel-layers.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='./javascript/init.js') }}"></script>
+    <noscript>
+        <link rel="stylesheet" href="{{ url_for('static', filename='./css/skel.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='./css/style.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='./css/style-wide.css') }}">
+    </noscript>
+    <!--[if lte IE 8]><link rel="stylesheet" href="http://www.west-code.org/css/ie/v8.css" /><![endif]-->
+
+</head>
+<body>
+{% from "_formhelpers.html" import render_field %}
+
+<!-- Header -->
+<div id="header">
+    <!-- Logo
+
+
+                    <!-- Nav -->
+    <nav id="nav">
+        <ul>
+            <li>
+                <a href="/">Home</a>
+            </li>
+            <li class="current">
+                <a href="/westcreate">Insert metadata</a>
+            </li>
+            <li>
+                <a href="/westdelete">Delete metadata</a>
+            </li>
+        </ul>
+    </nav>
+
+</div>
+
+
+<!-- Highlights -->
+<section class="wrapper style1">
+
+
+    <div class="container">
+
+        <div>
+            <div id="passcodesection">
+                <center><h2 title="Enter passcode set at runtime" class="text-center"> Enter Passcode </h2></center>
+                <form method="post" id="passcodeform" action="verifyPasscode">
+                    {{ render_field(verifyform.passcode) }}
+                    <span class="input-group-btn">
+                                    <input type="button" id="btnPasscode"
+                                           name="general_search_button" value="Submit"
+                                           title="Verify passcode" style="margin-top: 10px;">
+                        </span>
+                </form>
+            </div>
+
+
+            <div id="westconnection" style="display: none;">
+                <h2 data-toggle="tooltip" title="Insert West Docker metadata" class="text-center"> Insert West Docker metadata </h2>
+                <form method="post" action="westcreate">
+                    {{ render_field(form.west_version) }}
+                    {{ render_field(form.gcc_version) }}
+                    {{ render_field(form.gfortan_version) }}
+                    {{ render_field(form.blas_version) }}
+                    {{ render_field(form.lapack_version) }}
+                    {{ render_field(form.mpi_version) }}
+                    {{ render_field(form.fftw_version) }}
+                    {{ render_field(form.python_version) }}
+                     <div data-toggle="fieldset-west" id="extra-fieldset-west">
+                    <label>{{ form.extraFields.label }}</label> <button type="button" class="btn btn-theme-colored" data-toggle="fieldset-add-row-west" title="Add new fields" data-target="#extra-fieldset-west">+</button>
+                    <table id="extraTableWest">
+                        {% for extra in form.extraFields %}
+                        <tr data-toggle="fieldset-entry-west" id="entry-west">
+                            <td style="padding-bottom: 1rem;">{{ extra.extrakey(class_='form-control',title=extra.extrakey.description,**{'data-toggle': 'tooltip'}) }}</td>
+                            <td style="padding-bottom: 1rem;">{{ extra.extravalue(class_='form-control',title=extra.extravalue.description,**{'data-toggle': 'tooltip'}) }}</td>
+                            <td style="padding-bottom: 1rem;"><button type="button" class="btn btn-theme-colored" data-toggle="fieldset-remove-row-west" id="extraWestFields-{{loop.index0}}-remove">-</button></td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+            </div>
+                    <span class="input-group-btn">
+                                <input type="submit" id="btnInsert"
+                                       name="general_search_button" value="Insert"
+                                       title="Insert west code details." style="margin-top: 10px;">
+                    </span>
+                </form>
+            </div>
+
+
+
+
+        </div>
+
+
+    </div>
+</section>
+
+
+<!-- CTA -->
+<section id="cta" class="wrapper style3">
+    <div class="container">
+        <header>
+            <!--						<h2>Any questions?</h2>
+                                    <a href="forum.php" class="button">Check the Forum</a>
+            -->                    </header>
+    </div>
+</section>
+
+
+<!-- Footer -->
+<div id="footer">
+
+    <ul class="icons">
+        <li><a href="http://www.uchicago.edu"><img src="http://www.west-code.org/template/logo.rgb.maroon.png" alt=""
+                                                   width="250" align="middle"/> </a></li>
+        <li><a href="http://www.anl.gov"><img src="http://www.west-code.org/template/anl.png" alt="" width="200"
+                                              align="middle"/> </a></li>
+    </ul>
+
+    <!--	 Copyright -->
+    <div class="copyright">
+        <ul class="menu">
+            <li> UChicago and ANL</li>
+            <li> 2014-2019</li>
+
+        </ul>
+    </div>
+
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $("#btnPasscode").on('click', function (event) {
+            $.ajax({
+                type: "POST",
+                url: "verifyPasscode",
+                data: $('#passcodeform').serialize(),
+                success: function (data) {
+                    console.log(data);
+                    if (data.msg === "success") {
+                        $("#passcodesection").toggle();
+                        $("#westconnection").toggle();
+                        $("#deleteconnection").toggle();
+                    } else {
+                        alert("Passcode do not match");
+                    }
+                }
+            });
+            event.preventDefault();
+        });
+        $('#passcodeform').on('keyup keypress', function(e) {
+          var keyCode = e.keyCode || e.which;
+          if (keyCode === 13) {
+            e.preventDefault();
+            return false;
+          }
+        });
+        $("div[data-toggle=fieldset-west]").each(function() {
+        var $this = $(this);
+            //Add new entry
+        $this.find("button[data-toggle=fieldset-add-row-west]").click(function() {
+            var target = $($(this).data("target"))
+            var oldrow = target.find("#extraTableWest tr:last");
+            var row = oldrow.clone(true, true);
+            var elem_id = row.find(":input")[0].id;
+            var elem_num = parseInt(elem_id.replace(/.*-(\d{1,4})-.*/m, '$1')) + 1;
+            row.attr('data-id', elem_num);
+            row.find(":input").each(function() {
+                var id = $(this).attr('id').replace('-' + (elem_num - 1) + '-', '-' + (elem_num) + '-');
+                $(this).attr('name', id).attr('id', id).val('').removeAttr("checked");
+            });
+            oldrow.after(row);
+        }); //End add new entry
+
+        //Remove row
+        $this.find("button[data-toggle=fieldset-remove-row-west]").click(function() {
+            if($this.find("#extraTableWest tr").length > 1) {
+                var thisRow = $(this).closest("tr");
+                thisRow.remove();
+            }
+        }); //End remove row
+
+        });
+    });
+</script>
+
+
+</body>
+
+
+</html>

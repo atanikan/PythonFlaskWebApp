@@ -10,14 +10,14 @@ Docker & Docker compose <br>
 pip
 
 
-##Running code with docker
+## Running code with docker
 
 ```bash
 docker-compose build
 docker-compose up 
 ```
 
-##Running code with native python
+## Running code with native python
 
 ```bash
 cd web
